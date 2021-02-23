@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 def addNewAlbum():
-    checkfile()
+    checkAlbumfile()
     main_album = dict()
     album_content = open('files/albums.txt','r+')
     if os.stat('files/albums.txt').st_size == 0:
@@ -33,7 +33,7 @@ def addNewAlbum():
         album_content.write(json.dumps(main_album))
 
 def updateAlbum():
-    checkfile()
+    checkAlbumfile()
     album_content = open('files/albums.txt','r+')
     if os.stat('files/albums.txt').st_size == 0:
         print("No records found to update the album details")
@@ -56,22 +56,22 @@ def updateAlbum():
         print("Sorry, such album details is not available")
 
 def deleteAlbum():
-    checkfile()
+    checkAlbumfile()
     album_content = open('files/albums.txt','r+')
     if os.stat('files/albums.txt').st_size == 0:
-        print("No records found to update the album details")
+        print("No records found for album details")
         exit()
     else:
         main_album = json.load(album_content)
         album_content.seek(0)
-        album_content.truncate
     alName = input("Mention the album name want to delete: ")
     checkStatus = checkExistance(alName, main_album)
     if checkStatus:
         for index, item in enumerate(main_album["albums"]):
             if item["name"] == alName:
+                main_album["albums"].pop(index)
                 break
-        main_album.remove(index)
+        album_content.truncate()
         album_content.write(json.dumps(main_album))
     else:
         print("Sorry, such album details is not available")
@@ -83,7 +83,6 @@ def listAllAlbums():
     if os.stat('files/albums.txt').st_size == 0:
         print("no records found.")
     else:
-        print("records found")
         album_content = open('files/albums.txt','r')
         album_data = json.load(album_content)
         print(album_data)
@@ -93,7 +92,7 @@ def listAllAlbums():
         for x in album_data["albums"]:
             print("{}| {}| {}".format(x["name"].ljust(wid), x["year"].ljust(wid),x["songs"].ljust(wid)))
 
-def checkfile():
+def checkAlbumfile():
     if os.path.isfile("files/albums.txt"):
         print("File found")
     else:
@@ -103,7 +102,7 @@ def checkfile():
 def checkExistance(alName,album_content):
     status = False
     for x in album_content["albums"]:
-        print(x)
         if x["name"] == alName:
             status = True
+            break
     return status

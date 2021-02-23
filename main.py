@@ -1,4 +1,5 @@
 from albumSection import *
+from venueSection import *
 
 def albumArea():
     message = """Hello Quinn,
@@ -26,6 +27,34 @@ def albumArea():
         print("Please enter valid number (1,2,3 or 4)")
         albumArea()
 
+def mediaArea():
+    print("Thinking on it")
+
+def venueArea():
+    message = """Hello Quinn,
+    Welcome to Venue section.
+    1. Add new Venue details
+    2. Update venue details
+    3. Delete venue details
+    4. List all Venue schedules
+    Enter the selection: """
+    vOpt = input(message)
+    try:
+        vOpt = int(vOpt)
+    except:
+        print("Please mention the number")
+        venueArea()
+    if vOpt == 1:
+        addVenueDetails()
+    elif vOpt == 2:
+        updateVenueDetails()
+    elif vOpt == 3:
+        deleteVenuedetails()
+    elif vOpt == 4:
+        listAllVenueDetails()
+    else:
+        print("invalid selection")
+        venueArea()
 
 def main():    
     message = """Hello Quinn,
