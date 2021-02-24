@@ -1,0 +1,1 @@
+{"records": [{"venue": "V001", "date": "22/03/2020", "album": "Al01", "type": "Cloud", "records_count": 12}]}

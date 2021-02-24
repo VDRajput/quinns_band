@@ -106,3 +106,17 @@ def checkExistance(alName,album_content):
             status = True
             break
     return status
+
+def getAllAlbumsList():
+    list_of_albums = set()
+    if not(Path('files/albums.txt').is_file):
+        print("file does not exists!")
+        exit()
+    if os.stat('files/albums.txt').st_size == 0:
+        print("no records found.")
+    else:
+        album_content = open('files/albums.txt','r')
+        album_data = json.load(album_content)
+        for x in album_data["albums"]:
+            list_of_albums.add(x["name"])
+    return list(list_of_albums)

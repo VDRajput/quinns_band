@@ -87,7 +87,7 @@ def listAllVenueDetails():
         venue_details = json.load(venue_content)
         wid = 10
         keys_list = list(venue_details["venue"][0].keys())
-        print("{} | {} | {}".format((keys_list[0].upper()).ljust(wid), (keys_list[1].upper()).ljust(wid),(keys_list[2].upper()).ljust(wid)))
+        print("{}| {}| {}".format((keys_list[0].upper()).ljust(wid), (keys_list[1].upper()).ljust(wid),(keys_list[2].upper()).ljust(wid)))
         for x in venue_details["venue"]:
             print("{}| {}| {}".format(x["venue_title"].ljust(wid), x["venue_address"].ljust(wid),x["venue_date"].ljust(wid)))
 
@@ -99,3 +99,16 @@ def checkVenueExistsance(venueUpdate,venue_details):
             checkStatus = True
             break
     return checkStatus
+
+def getAllVenueList():
+    list_of_venue = []
+    if not(Path('files/venue.txt').is_file):
+        print("Data not found!")
+    if os.stat("files/venue.txt").st_size == 0:
+        print("No records found!")
+    else:
+        venue_content = open("files/venue.txt","r")
+        venue_details = json.load(venue_content)
+        for x in venue_details["venue"]:
+            list_of_venue.append(x["venue_title"])
+    return list_of_venue

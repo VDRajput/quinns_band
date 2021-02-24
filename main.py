@@ -1,5 +1,6 @@
 from albumSection import *
 from venueSection import *
+from recordsSellingsSection import *
 
 def albumArea():
     message = """Hello Quinn,
@@ -56,6 +57,29 @@ def venueArea():
         print("invalid selection")
         venueArea()
 
+def recordsSellingsArea():
+    message = """Hello Quinn,
+    Welcome to Records collections section.
+    1. Add new sales entry
+    2. Delete sales entry
+    3. List out collection
+    Please enter the selection: """
+    optSelection = input(message)
+    try:
+        optSelection = int(optSelection)
+    except:
+        print("Please mention the number")
+        recordsSellingsArea()
+    if optSelection == 1:
+        addNewRecord()
+    elif optSelection == 2:
+        deleteExistingRecord()
+    elif optSelection == 3:
+        listAllRecords()
+    else:
+        print("Please mention the number 1,2 or 3")
+        recordsSellingsArea()
+
 def main():    
     message = """Hello Quinn,
     Select main area to check the details.
@@ -63,7 +87,8 @@ def main():
     2. Media
     3. Venue
     4. Records Sellings
-    5. Exit
+    5. Popular records at each venue
+    6. Exit
     Enter selection number: """
     selOpt = input(message)
     try:
